@@ -16,16 +16,43 @@ class OffParser():
     ----------
     path : str
         The path to the ASCII .OFF file.
+    label : str
+        The data label.
 
     Attributes
     ----------
+    label : str
+        The data label.
     points : array
         The array of vertex points of shape (N, 3).
     faces : list
         A list of lists of point indices constructing each face.
     """
-    def __init__(self, path):
-        self.load_ascii(path)
+    def __init__(self, path, label=None):
+        self.label = label
+
+        if path is not None:
+            self.load_ascii(path)
+
+    def __repr__(self):
+        return '{}(label={!r}, num_points={!r}, num_faces={!r})'.format(
+            type(self).__name__, self.label, len(self.points), len(self.faces))
+
+    @classmethod
+    def from_data(cls, data, label=None):
+        """
+        Creates a new object from parsed data.
+
+        Parameters
+        ----------
+        data : list
+            A list of data.
+        label : str
+            The data label.
+        """
+        obj = cls(path=None, label=label)
+        obj.load_list(data)
+        return obj
 
     def load_ascii(self, path):
         """
@@ -59,7 +86,7 @@ class OffParser():
         p, f = [int(x) for x in data[1][:2]]
 
         # Rows 2 through p should contain points
-        points = data[2:p+2]
+        points = [r[:3] for r in data[2:p+2]]
 
         # Rows p+2 through f+p+2 should contain faces
         faces = []
