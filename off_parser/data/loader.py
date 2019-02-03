@@ -88,12 +88,12 @@ def _load_modelnet(name, partition):
     with zipfile.ZipFile(path, 'r') as fh:
         for name in fh.namelist():
             if name.endswith('.off') and not name.startswith('__MACOSX') and s in name:
+                label = name.split('/')[-3]
                 data = fh.read(name)
                 data = data.decode('utf-8')
                 data = data.split('\n')
                 data = [x.split(' ') for x in data]
-                data = OffParser.from_data(data)
-                data.label = name.split('/')[-3]
+                data = OffParser.from_data(data, label=label)
 
                 yield data
 

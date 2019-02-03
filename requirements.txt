@@ -1,5 +1,5 @@
-numpy==1.14.5
-matplotlib==2.2.2
+numpy>=1.14.5
+matplotlib>=2.2.2
 
 # test
 pytest>=3.5.1
