@@ -3,6 +3,11 @@ import numpy as np
 from ..data import load_data
 
 
+def test_repr():
+    p = load_data('cube')
+    repr(p)
+
+
 def test_cube():
     p = load_data('cube')
 
