@@ -1,6 +1,6 @@
 import csv
 import numpy as np
-from ._plt import plt
+import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 __all__ = ['OffParser']
